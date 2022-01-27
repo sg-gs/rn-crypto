@@ -207,10 +207,10 @@ public class RnCryptoModule extends ReactContextBaseJavaModule {
       CipherOutputStream cos = new CipherOutputStream(fos, cipher);
 
       int b;
-      byte[] d = new byte[8];
+      byte[] buffer = new byte[4096];
 
-      while ((b = fis.read(d)) != -1) {
-        cos.write(d, 0, b);
+      while ((b = fis.read(buffer)) != -1) {
+        cos.write(buffer, 0, b);
       }
 
       cos.flush();
@@ -276,9 +276,9 @@ public class RnCryptoModule extends ReactContextBaseJavaModule {
       CipherInputStream cis = new CipherInputStream(fis, cipher);
 
       int b;
-      byte[] d = new byte[8];
-      while ((b = cis.read(d)) != -1) {
-        fos.write(d, 0, b);
+      byte[] buffer = new byte[4096];
+      while ((b = cis.read(buffer)) != -1) {
+        fos.write(buffer, 0, b);
       }
       fos.flush();
       fos.close();
