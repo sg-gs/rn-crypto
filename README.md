@@ -11,11 +11,27 @@ npm install rn-crypto
 ## Usage
 
 ```js
-import { multiply } from "rn-crypto";
+import { encryptFile } from "rn-crypto";
 
 // ...
+const sourcePath = '/path/where/content/to/encrypt/is';
+const destinationPath = '/path/where/writing/encrypted/output';
+const key = 'hexadecimal-encryption-file-key';
+const iv = 'hexadecimal-initialization-vector'; 
 
-const result = await multiply(3, 7);
+encryptFile(
+  sourcePath,
+  destinationPath,
+  key,
+  iv,
+  (err) => {
+    if (err) {
+      // handle error...
+    } else {
+      // file is encrypted succesfully, it can be found at destinationPath
+    }
+  }
+)
 ```
 
 ## Contributing
