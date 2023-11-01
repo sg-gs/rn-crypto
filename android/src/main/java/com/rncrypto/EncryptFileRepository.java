@@ -56,10 +56,18 @@ public class EncryptFileRepository {
    * Generates an AES-256-CTR Cipher
    *
    * @param key Cipher key
-   * @param iv Initialization vector
+   * @param iv  Initialization vector
    * @return Cipher used for encrypting with AES-256-CTR
    */
-  private Cipher getAES256CTRCipher(byte[] key, byte[] iv) throws NoSuchPaddingException, NoSuchAlgorithmException, InvalidAlgorithmParameterException, InvalidKeyException {
+  public Cipher getAES256CTRCipher(byte[] key, byte[] iv) throws NoSuchPaddingException, NoSuchAlgorithmException, InvalidAlgorithmParameterException, InvalidKeyException, IllegalArgumentException {
+    if (key.length != 32) {
+      throw new IllegalArgumentException("Invalid key length. Expected 32 bytes, received " + key.length);
+    }
+
+    if (iv.length != 16) {
+      throw new IllegalArgumentException("Invalid iv length. Expected 16 bytes, received " + iv.length);
+    }
+
     SecretKeySpec secretKey = new SecretKeySpec(key, 0, key.length, "AES");
     Cipher cipher = Cipher.getInstance("AES/CTR/NoPadding");
 
